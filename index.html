@@ -2,7 +2,7 @@
 <html lang="en-US">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, intial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Learning how to Vue.JS</title>
 		<link rel="stylesheet" href="style.css">
 	</head>
@@ -20,14 +20,27 @@
 				</div>
 				<div class="product-info-cont">
 					<h1 class="product-info">{{ product }}</h1>
-					<p v-show="inventory" class="product-count">In Stock</p>
+					<span v-show="onSale" class="product-sale">On Sale</span>
+					<p v-if="inventory" class="product-count">In Stock</p>
 					<p v-else-if="inventory <= 10 && inventory > 0" class="product-count">Almost Sold Out</p>
 					<p v-else class="product-count">Out of Stock</p>
-					<span v-if="onSale" class="product-sale">On Sale</span>
-
 					<ul class="product-detail-cont">
 						<li class="product-detail" v-for="detail in details">{{ detail }}</li>
 					</ul>
+
+					<div v-for="variant in variants" :key="variant.variantId">
+						<p @mouseover="updateProduct(variant.variantImage)" class="product-color">{{ variant.variantColor }}</p>
+					</div>
+
+					<div v-for="size in sizes">
+						<p class="product-size">{{ size }}</p>
+					</div>
+
+					<button v-on:click="addToCart">Add to Cart</button>
+
+					<div class="cart">
+						<p>Cart({{ cart }})</p>
+					</div>
 				</div>
 			</div>
 		</div>

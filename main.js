@@ -10,12 +10,24 @@ var app = new Vue({
 		variants: [
 			{
 				variantId: 2234,
-				variantCOlor: "green"
+				variantColor: "green",
+				variantImage: 'assets/green-socks.jpg'
 			},
 			{
 				variantId: 2235,
-				variantColor: "blue"
+				variantColor: "blue",
+				variantImage: 'assets/blue-socks.jpg'
 			}
-		]
+		],
+		sizes: ["small", "medium", "large"],
+		cart: 0,
+	},
+	methods: {
+		addToCart() {
+			this.cart += 1;
+		},
+		updateProduct(variantImage) {
+			this.image = variantImage; 
+		}
 	}
-})
+});
