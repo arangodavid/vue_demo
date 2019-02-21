@@ -20,8 +20,14 @@
 				</div>
 				<div class="product-info-cont">
 					<h1 class="product-info">{{ product }}</h1>
-					<p v-if="inStock" class="product-count">In Stock</p>
+					<p v-show="inventory" class="product-count">In Stock</p>
+					<p v-else-if="inventory <= 10 && inventory > 0" class="product-count">Almost Sold Out</p>
 					<p v-else class="product-count">Out of Stock</p>
+					<span v-if="onSale" class="product-sale">On Sale</span>
+
+					<ul class="product-detail-cont">
+						<li class="product-detail" v-for="detail in details">{{ detail }}</li>
+					</ul>
 				</div>
 			</div>
 		</div>

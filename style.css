@@ -13,12 +13,18 @@ body {
 	flex-flow: row wrap;
 }
 .product-image,
+.product-sale,
 .product-info-cont {
 	width: 100%;
 	display: block;
 }
+.product-detail-cont {
+	list-style-type: none;
+}
+.product-sale,
 .product-count,
-.product-info {
+.product-info,
+.product-detail {
 	text-align: center;
 }
 @media screen and (min-width: 750px) {
