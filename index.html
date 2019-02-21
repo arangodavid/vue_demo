@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, intial-scale=1">
+		<title>Learning how to Vue.JS</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+
+		<div class="nav-bar"></div>
+
+		<div id="app">
+			<div class="product">
+
+				<div class="product-image-cont">
+					<a :href="link" target="_blank">
+						<img class="product-image" :src="image" />
+					</a>	
+				</div>
+				<div class="product-info-cont">
+					<h1 class="product-info">{{ product }}</h1>
+					<p v-if="inStock" class="product-count">In Stock</p>
+					<p v-else class="product-count">Out of Stock</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="main.js"></script>
+	</body>
+</html>
