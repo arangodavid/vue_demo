@@ -29,6 +29,11 @@ body {
 .product-size {
 	text-align: center;
 }
+.color-box {
+	width: 2em;
+	height: 2em;
+	margin-top: calc(1em / 2);
+}
 @media screen and (min-width: 750px) {
 	.product-image-cont,
 	.product-info-cont {
