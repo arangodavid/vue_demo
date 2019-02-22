@@ -1,7 +1,8 @@
 Vue.component('productDetails', {
 	props: {
 		details: {
-			type: 
+			type: Array,
+			required: true
 		}
 	},
 	template: `
@@ -35,6 +36,8 @@ Vue.component('product', {
 					<p v-else-if="inStock <= 10 && inStock > 0" class="product-count">Almost Sold Out</p>
 					<p v-else class="product-count" :class="[ !inStock ? outOfStock : 'product-count' ]">Out of Stock</p>
 					<p>Shipping is: {{ shipping }}</p>
+
+					<productDetails :details="this.details"></productDetails>
 
 					<section class="variant-cont">
 						<section v-for="(variant, index) in variants" 
