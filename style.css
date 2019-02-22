@@ -9,9 +9,16 @@ body {
 	background: linear-gradient(to right, teal, aqua);
 }
 .product,
-.cart-cont {
+.cart-cont,
+.product-size-cont {
 	display: flex;
 	flex-flow: row wrap;
+}
+.product-size-cont {
+	flex-flow: row nowrap;
+}
+.product-sizes {
+	width: calc(100% - 66%);
 }
 .product-image-cont {
 	border: 1px solid grey;
@@ -88,6 +95,7 @@ body {
 }
 .disabledButton {
 	background: #bdc3c7;
+	border: 1px solid #bdc3c7;
 }
 .remove-from-cart {
 	padding: 1em;
