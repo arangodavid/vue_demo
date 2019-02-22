@@ -8,47 +8,53 @@
 	</head>
 	<body>
 
-		<div class="nav-bar"></div>
+		<section class="nav-bar"></section>
 
-		<div id="app">
-			<div class="product">
+		<section id="app">
+			<section class="product">
 
-				<div class="product-image-cont">
-					<a :href="link" target="_blank">
+				<section class="product-image-cont">
+					<a class="product-image-link" :href="link" target="_blank">
 						<img class="product-image" :src="image" />
 					</a>	
-				</div>
-				<div class="product-info-cont">
-					<h1 class="product-info">{{ product }}</h1>
+				</section>
+				<section class="product-info-cont">
+					<h1 class="product-info">{{ title }}</h1>
 					<span v-show="onSale" class="product-sale">On Sale</span>
 					<p v-if="inventory" class="product-count">In Stock</p>
 					<p v-else-if="inventory <= 10 && inventory > 0" class="product-count">Almost Sold Out</p>
-					<p v-else class="product-count">Out of Stock</p>
+					<p v-else class="product-count" :class="[ !inStock ? outOfStock : 'product-count' ]">Out of Stock</p>
 					<ul class="product-detail-cont">
 						<li class="product-detail" v-for="detail in details">{{ detail }}</li>
 					</ul>
 
-					<div v-for="variant in variants" 
+					<section class="variant-cont">
+						<section v-for="variant in variants" 
 						 :key="variant.variantId" 
 						 @mouseover="updateProduct(variant.variantImage, variant.variantUrl)"
 						 class="color-box"
 						 :style="{ background: variant.variantColor }"
 						 >
-					</div>
+						</section>
+					</section>
 
-					<div v-for="size in sizes">
+					<section v-for="size in sizes">
 						<p class="product-size">{{ size }}</p>
-					</div>
+					</section>
 
-					<button @click="addToCart">Add to Cart</button>
-					<button @click="subtractFromCart">Remove From Cart</button>
+					<section class="cart-cont">
+						<button @click="addToCart" 
+								:disabled="!inStock"
+								:class="{ disabledButton: !inStock, activeButton: inStock }">Add to Cart</button>
+						<button class="remove-from-cart" @click="subtractFromCart">Remove From Cart</button>
 
-					<div class="cart">
-						<p>Cart({{ cart }})</p>
-					</div>
-				</div>
-			</div>
-		</div>
+						<section :class="{ cartClicked: cartClicked, 'cart': !cartClicked }">
+							<p class="cart-count">Cart({{ cart }})</p>
+						</section>
+					</section>
+				</section>
+			</section>
+		</section>
 
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="main.js"></script>
