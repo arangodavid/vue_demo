@@ -1,6 +1,32 @@
+Vue.component('product-tabs', {
+	template: `
+		<div>
+			<span class="tab" 
+				  :class="{ activeTab: selectedTab === tab }"
+				  v-for="(tab, index) in tabs" 
+				  :key="index"
+				  @click="selectedTab = tab">
+				  {{ tab }}
+			</span>
+		</div>
+	`,
+	data() {
+		return {
+			tabs: ['Reviews', 'Make a Review'],
+			selectedTab: 'Reviews'
+		}
+	}
+});
+
 Vue.component('product-review', {
 	template: `
-		<form class="review-form" @submit="onSubmit">
+		<form class="review-form" @submit.prevent="onSubmit">
+			<section v-if="errors.length">
+				<p>Please correct the following error(s)</p>
+				<ul>
+					<li v-for="error in errors">{{ error }}</li>
+				</ul>
+			</section>
 			<section class="form-sections">
 				<label class="form-label" for="name">Name:</label>
 				<input class="form-feedback" id="name" v-model="name"/>
@@ -8,6 +34,11 @@ Vue.component('product-review', {
 			<section class="form-sections">
 				<label class="form-label">Review:</label>
 				<textarea class="form-feedback" id="review" v-model="review"></textarea>
+			</section>
+			<section class="form-sections">
+				<p class="form-label">Would you recommend this product?</p>
+				<input type="radio" name="recommend" value="yes" v-model="recommended"/>Yes
+				<input type="radio" name="recommend" value="no" v-model="recommended"/>No
 			</section>
 			<section class="form-sections">
 				<label class="form-label" for="rating">Rating:</label>
@@ -28,7 +59,32 @@ Vue.component('product-review', {
 		return {
 			name: null,
 			review: null,
-			rating: null
+			rating: null,
+			recommended: null,
+			errors: []
+		}
+	},
+	methods: {
+		onSubmit() {
+			if(this.name && this.review && this.rating && this.recommended) {
+				this.errors.length = 0;
+				let productReview = {
+					name: this.name,
+					review: this.review,
+					rating: this.rating,
+					recommended: this.recommended
+				};
+				this.$emit('review-submitted', productReview);
+				this.name = null;
+				this.review = null;
+				this.rating = null;
+				this.recommended = null;
+			}else {
+				if(!this.name) this.errors.push("Name required");
+				if(!this.review) this.errors.push("Review required");
+				if(!this.rating) this.errors.push("Rating required");
+				if(!this.recommended) this.errors.push("Recommendation required");
+			}
 		}
 	}
 });
@@ -45,8 +101,6 @@ Vue.component('productDetails', {
 		</ul>
 	`
 });
-
-
 Vue.component('product', {
 	props: {
 		premium: {
@@ -97,7 +151,19 @@ Vue.component('product', {
 					</section>
 
 				</section>
-				<product-review></product-review>
+				<product-tabs></product-tabs>
+				<section class="user-reviews-cont">
+					<p v-if="!reviews.length">There are no reviews yet!</p>
+					<ul>
+						<li v-for="review in reviews">
+							<p>{{ review.name }}</p>
+							<p>Rating: {{ review.rating }}</p>
+							<p>{{ review.review }}</p>
+							<p>Would you recommend this product? {{ review.recommended }}</p>
+						</li>
+					</ul>
+				</section>
+				<product-review @review-submitted="addReview"></product-review>
 			</section>
 	`,
 	data() {
@@ -111,6 +177,8 @@ Vue.component('product', {
 			outOfStock: 'out-of-stock', 
 			cartClicked: false,
 			details: ["80% cotton", "20% polyester", "gender-neutral"],
+			sizes: ["small", "medium", "large"],
+			reviews: [],
 			variants: [
 				{
 					variantId: 2234,
@@ -126,8 +194,7 @@ Vue.component('product', {
 					variantUrl: 'https://www.dropbox.com/s/t32hpz32y7snfna/vmSocks-blue-onWhite.jpg?dl=0',
 					variantQuantity: 0
 				}
-			],
-			sizes: ["small", "medium", "large"]
+			]
 		} 
 	},
 	methods: {
@@ -140,6 +207,9 @@ Vue.component('product', {
 		updateProduct(variantIndex, variantUrl) {
 			this.selectedVariant = variantIndex;
 			this.link = variantUrl;
+		},
+		addReview(productReview) {
+			this.reviews.push(productReview);
 		}
 	},
 	computed: {

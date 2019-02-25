@@ -146,6 +146,7 @@ body {
 }
 .form-feedback {
 	border: 1px solid #bdc3c7;
+	outline-color: teal;
 }
 @media screen and (min-width: 750px) {
 	.product-image-cont,
