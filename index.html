@@ -11,9 +11,12 @@
 		<section class="nav-bar"></section>
 
 		<section id="app">
-			<product :premium="premium"></product>
+			<section :class="{ cartClicked: cartClicked, 'cart': !cartClicked }">
+				<p class="cart-count">Cart({{ cart.length }})</p>
+			</section>
+			<product :premium="premium" @add-to-cart="updateCart" @subtract-from-cart="subtractFromCart"></product>
 		</section>
-
+		<footer class="site-footer"></footer>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="main.js"></script>
 	</body>
