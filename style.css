@@ -148,6 +148,15 @@ body {
 	border: 1px solid #bdc3c7;
 	outline-color: teal;
 }
+.tab {
+	color: #000000;
+	text-decoration: underline;
+}
+.activeTab {
+	color: aqua;
+	text-decoration: underline;
+	text-decoration-color: aqua;
+}
 @media screen and (min-width: 750px) {
 	.product-image-cont,
 	.product-info-cont {
