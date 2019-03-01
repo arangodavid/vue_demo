@@ -4,7 +4,9 @@
   "description": "Restful API with Node.js, Express, PostgreSQL, and Vue.js",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel main.js --out-dir build",
+    "dev-start": "babel-watch main.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,17 @@
   "bugs": {
     "url": "https://github.com/arangodavid/vue_demo/issues"
   },
-  "homepage": "https://github.com/arangodavid/vue_demo#readme"
+  "homepage": "https://github.com/arangodavid/vue_demo#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "4.16.4",
+    "pg": "^7.8.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "babel-cli": "^6.26.0", 
+    "babel-loader": "^8.0.5",
+    "babel-watch": "^7.0.0"
+  }
 }
