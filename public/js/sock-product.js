@@ -70,14 +70,14 @@ Vue.component('product', {
 				{
 					variantId: 2234,
 					variantColor: "green",
-					variantImage: 'assets/green-socks.jpg',
+					variantImage: '../assets/green-socks.jpg',
 					variantUrl: 'https://www.dropbox.com/s/9zccs3f0pimj0wj/vmSocks-green-onWhite.jpg?dl=0',
 					variantQuantity: 10
 				},
 				{
 					variantId: 2235,
 					variantColor: "blue",
-					variantImage: 'assets/blue-socks.jpg',
+					variantImage: '../assets/blue-socks.jpg',
 					variantUrl: 'https://www.dropbox.com/s/t32hpz32y7snfna/vmSocks-blue-onWhite.jpg?dl=0',
 					variantQuantity: 0
 				}
