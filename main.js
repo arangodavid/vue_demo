@@ -8,7 +8,7 @@ let PGDB = 'vuesace_sock_api'; //PostgreSQL DB
 
 const PORT = process.env.PORT || 4001; //Get the Port
 
-app.use(express.static('public')); //Serves app
+app.use(express.static('public')); //Serves static app
 
 var config = {
 	user: PGUSER,

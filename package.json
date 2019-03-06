@@ -5,8 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel main.js --out-dir build",
-    "dev-start": "babel-watch main.js"
+    "build": "babel public/js --out-dir build",
+    "dev-start": "babel-watch public/js"
   },
   "repository": {
     "type": "git",
@@ -34,9 +34,10 @@
     "pg-format": "1.0.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
-    "babel-cli": "^6.26.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.5",
     "babel-watch": "^7.0.0"
   }

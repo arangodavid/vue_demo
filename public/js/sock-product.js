@@ -1,4 +1,4 @@
-var eventBus = new Vue();
+const eventBus = new Vue();
 
 Vue.component('product', {
 	props: {
@@ -65,7 +65,26 @@ Vue.component('product', {
 			cartClicked: false,
 			details: ["80% cotton", "20% polyester", "gender-neutral"],
 			sizes: ["small", "medium", "large"],
-			reviews: [],
+			reviews: [
+				{
+					name: 'Lebron',
+					review: 'These socks allow me to jump higher',
+					recommend: 'yes',
+					rating: 9
+				},
+				{
+					name: 'David',
+					review: 'These socks allow me to code wiser',
+					recommend: 'yes',
+					rating: 10
+				},
+				{
+					name: 'Ashley',
+					review: 'These socks make me more productive',
+					recommend: 'yes',
+					rating: 10
+				}
+					  ],
 			variants: [
 				{
 					variantId: 2234,
@@ -119,6 +138,12 @@ Vue.component('product', {
 		eventBus.$on('review-submitted', productReview => {
 			this.reviews.push(productReview);
 		});
+		eventBus.$on('review-deleted', reviewCount => {
+			console.log(`reviews length: ${this.reviews.length}`);
+			console.log(`index to remove: ${reviewCount}`);
+			this.reviews.splice(reviewCount, 1);
+			console.log(this.reviews);
+		});
 	}
 });
 Vue.component('productDetails', {
@@ -171,11 +196,15 @@ Vue.component('product-tabs', {
 			<section class="user-reviews-cont" v-show="selectedTab === 'Reviews'">
 				<p v-if="!reviews.length">There are no reviews yet!</p>
 				<ul>
-					<li v-for="review in reviews">
-						<p>{{ review.name }}</p>
-						<p>Rating: {{ review.rating }}</p>
-						<p>{{ review.review }}</p>
-						<p>Would you recommend this product? {{ review.recommended }}</p>
+					<li v-for="(review, index) in reviews">
+						<button type="button" @click="onRemove"><i class="far fa-trash-alt"></i></button>
+						<section>
+							<p>{{ index }}</p>
+							<p>{{ review.name }}</p>
+							<p>Rating: {{ review.rating }}</p>
+							<p>{{ review.review }}</p>
+							<p>Would you recommend this product? {{ review.recommended }}</p>
+						</section>
 					</li>
 				</ul>
 			</section>
@@ -186,7 +215,14 @@ Vue.component('product-tabs', {
 	data() {
 		return {
 			tabs: ['Reviews', 'Make a Review'],
-			selectedTab: 'Reviews'
+			selectedTab: 'Reviews',
+		}
+	},
+	methods: {
+		onRemove(e) {
+			let reviewCountString = e.target.parentElement.nextElementSibling.children[0].innerHTML;
+			let reviewCount = parseInt(reviewCountString);
+			eventBus.$emit('review-deleted', reviewCount);
 		}
 	}
 });
@@ -265,7 +301,7 @@ Vue.component('product-review', {
 		}
 	}
 });
-var app = new Vue({
+const app = new Vue({
 	el: '#app',
 	data: {
 		premium: false,
